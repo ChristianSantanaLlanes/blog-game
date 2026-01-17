@@ -14,7 +14,7 @@ collections:
     folder: "src/content/news"
     create: true
     slug: "{{slug}}"
-    media_folder: "/src/assets/images/uploads/news"
+    media_folder: "src/assets/images/uploads/news"
     public_folder: "../../assets/images/uploads/news"
     fields:
       - {label: "Título", name: "title", widget: "string"}
@@ -28,7 +28,7 @@ collections:
     folder: "src/content/guides"
     create: true
     slug: "{{slug}}"
-    media_folder: "/src/assets/images/uploads/guides"
+    media_folder: "src/assets/images/uploads/guides"
     public_folder: "../../assets/images/uploads/guides"
     fields:
       - {label: "Título", name: "title", widget: "string"}
@@ -43,7 +43,7 @@ collections:
     folder: "src/content/tutorials"
     create: true
     slug: "{{slug}}"
-    media_folder: "/src/assets/images/uploads/tutorials"
+    media_folder: "src/assets/images/uploads/tutorials"
     public_folder: "../../assets/images/uploads/tutorials"
     fields:
       - {label: "Título", name: "title", widget: "string"}
