@@ -121,67 +121,101 @@ const { title } = Astro.props;
 		<script>
 			import netlifyIdentity from "netlify-identity-widget";
 
-			window.netlifyIdentity = netlifyIdentity;
+			// Netlify Identity Only once
+			if (!window.netlifyIdentityInitialized) {
+				window.netlifyIdentity = netlifyIdentity;
+				netlifyIdentity.init();
 
-			netlifyIdentity.init();
-
-			if (window.netlifyIdentity) {
-				window.netlifyIdentity.on("init", (user) => {
-					if (!user) {
-						window.netlifyIdentity.on("login", () => {
-							document.location.href = "/admin/";
-						});
-					}
-				});
+				if (window.netlifyIdentity) {
+					window.netlifyIdentity.on("init", (user) => {
+						if (!user) {
+							window.netlifyIdentity.on("login", () => {
+								document.location.href = "/admin/";
+							});
+						}
+					});
+				}
+				window.netlifyIdentityInitialized = true;
 			}
 
-			// Mobile Menu Toggle
-			const menuToggle = document.getElementById("menuToggle");
-			const navLinks = document.getElementById("navLinks");
-			const menuOverlay = document.getElementById("menuOverlay");
+			// Function to initialize menu and animations
+			// This runs on every page load including View Transitions
+			function initPage() {
+				// Mobile Menu Toggle
+				const menuToggle = document.getElementById("menuToggle");
+				const navLinks = document.getElementById("navLinks");
+				const menuOverlay = document.getElementById("menuOverlay");
 
-			const toggleMenu = () => {
-				menuToggle?.classList.toggle("active");
-				navLinks?.classList.toggle("active");
-				menuOverlay?.classList.toggle("active");
-				document.body.style.overflow = navLinks?.classList.contains(
-					"active",
-				)
-					? "hidden"
-					: "";
-			};
-
-			const closeMenu = () => {
+				// Reset menu state on page load
 				menuToggle?.classList.remove("active");
 				navLinks?.classList.remove("active");
 				menuOverlay?.classList.remove("active");
 				document.body.style.overflow = "";
-			};
 
-			menuToggle?.addEventListener("click", toggleMenu);
-			menuOverlay?.addEventListener("click", closeMenu);
+				const toggleMenu = () => {
+					menuToggle?.classList.toggle("active");
+					navLinks?.classList.toggle("active");
+					menuOverlay?.classList.toggle("active");
+					document.body.style.overflow = navLinks?.classList.contains(
+						"active",
+					)
+						? "hidden"
+						: "";
+				};
 
-			// Close menu on link click
-			navLinks?.querySelectorAll("a").forEach((link) => {
-				link.addEventListener("click", closeMenu);
-			});
+				const closeMenu = () => {
+					menuToggle?.classList.remove("active");
+					navLinks?.classList.remove("active");
+					menuOverlay?.classList.remove("active");
+					document.body.style.overflow = "";
+				};
 
-			// Scroll Reveal Animation
-			const revealElements = document.querySelectorAll(".reveal");
+				// Remove old listeners to prevent duplicates
+				const newMenuToggle = menuToggle?.cloneNode(true);
+				const newOverlay = menuOverlay?.cloneNode(true);
 
-			const revealOnScroll = () => {
-				revealElements.forEach((el) => {
-					const elementTop = el.getBoundingClientRect().top;
-					const windowHeight = window.innerHeight;
+				if (menuToggle && newMenuToggle) {
+					menuToggle.replaceWith(newMenuToggle);
+					newMenuToggle.addEventListener("click", toggleMenu);
+				}
 
-					if (elementTop < windowHeight - 100) {
-						el.classList.add("visible");
-					}
+				if (menuOverlay && newOverlay) {
+					menuOverlay.replaceWith(newOverlay);
+					newOverlay.addEventListener("click", closeMenu);
+				}
+
+				// Close menu on link click
+				const updatedNavLinks = document.getElementById("navLinks");
+				updatedNavLinks?.querySelectorAll("a").forEach((link) => {
+					link.addEventListener("click", closeMenu);
 				});
-			};
 
-			window.addEventListener("scroll", revealOnScroll);
-			revealOnScroll(); // Initial check
+				// Scroll Reveal Animation
+				const revealElements = document.querySelectorAll(".reveal");
+
+				const revealOnScroll = () => {
+					revealElements.forEach((el) => {
+						const elementTop = el.getBoundingClientRect().top;
+						const windowHeight = window.innerHeight;
+
+						if (elementTop < windowHeight - 100) {
+							el.classList.add("visible");
+						}
+					});
+				};
+
+				// Remove old scroll listener and add new one
+				window.removeEventListener("scroll", window.__revealOnScroll);
+				window.__revealOnScroll = revealOnScroll;
+				window.addEventListener("scroll", revealOnScroll);
+				revealOnScroll(); // Initial check
+			}
+
+			// Run on initial page load
+			initPage();
+
+			// Run after every View Transition navigation
+			document.addEventListener("astro:page-load", initPage);
 		</script>
 	</body>
 </html>
