@@ -32,6 +32,7 @@ const { title } = Astro.props;
 		></script>
 	</head>
 	<body>
+		<div class="menu-overlay" id="menuOverlay"></div>
 		<header class="main-header">
 			<nav>
 				<a href="/" class="logo"
@@ -137,18 +138,32 @@ const { title } = Astro.props;
 			// Mobile Menu Toggle
 			const menuToggle = document.getElementById("menuToggle");
 			const navLinks = document.getElementById("navLinks");
+			const menuOverlay = document.getElementById("menuOverlay");
 
-			menuToggle?.addEventListener("click", () => {
-				menuToggle.classList.toggle("active");
+			const toggleMenu = () => {
+				menuToggle?.classList.toggle("active");
 				navLinks?.classList.toggle("active");
-			});
+				menuOverlay?.classList.toggle("active");
+				document.body.style.overflow = navLinks?.classList.contains(
+					"active",
+				)
+					? "hidden"
+					: "";
+			};
+
+			const closeMenu = () => {
+				menuToggle?.classList.remove("active");
+				navLinks?.classList.remove("active");
+				menuOverlay?.classList.remove("active");
+				document.body.style.overflow = "";
+			};
+
+			menuToggle?.addEventListener("click", toggleMenu);
+			menuOverlay?.addEventListener("click", closeMenu);
 
 			// Close menu on link click
 			navLinks?.querySelectorAll("a").forEach((link) => {
-				link.addEventListener("click", () => {
-					menuToggle?.classList.remove("active");
-					navLinks.classList.remove("active");
-				});
+				link.addEventListener("click", closeMenu);
 			});
 
 			// Scroll Reveal Animation
