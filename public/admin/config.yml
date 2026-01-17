@@ -15,7 +15,7 @@ collections:
     create: true
     slug: "{{slug}}"
     media_folder: "src/assets/images/uploads/news"
-    public_folder: "/src/assets/images/uploads/news"
+    public_folder: "../../assets/images/uploads/news"
     fields:
       - {label: "Título", name: "title", widget: "string"}
       - {label: "Publicado", name: "date", widget: "datetime"}
@@ -29,7 +29,7 @@ collections:
     create: true
     slug: "{{slug}}"
     media_folder: "src/assets/images/uploads/guides"
-    public_folder: "/src/assets/images/uploads/guides"
+    public_folder: "../../assets/images/uploads/guides"
     fields:
       - {label: "Título", name: "title", widget: "string"}
       - {label: "Publicado", name: "date", widget: "datetime"}
@@ -44,7 +44,7 @@ collections:
     create: true
     slug: "{{slug}}"
     media_folder: "src/assets/images/uploads/tutorials"
-    public_folder: "/src/assets/images/uploads/tutorials"
+    public_folder: "../../assets/images/uploads/tutorials"
     fields:
       - {label: "Título", name: "title", widget: "string"}
       - {label: "Publicado", name: "date", widget: "datetime"}
