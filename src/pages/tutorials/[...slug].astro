@@ -1,10 +1,9 @@
 ---
-import { getCollection } from 'astro:content';
-import { Image } from 'astro:assets';
-import Layout from '../../layouts/Layout.astro';
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
 
 export async function getStaticPaths() {
-	const posts = await getCollection('tutorials');
+	const posts = await getCollection("tutorials");
 	return posts.map((post) => ({
 		params: { slug: post.slug },
 		props: post,
@@ -21,17 +20,31 @@ const { Content } = await post.render();
 			<div class="meta">
 				<span class="level-tag">{post.data.level}</span>
 				<time datetime={post.data.date.toISOString()}>
-					{post.data.date.toLocaleDateString('es-ES', {
-						year: 'numeric',
-						month: 'long',
-						day: 'numeric',
-					})}
+					{
+						post.data.date.toLocaleDateString("es-ES", {
+							year: "numeric",
+							month: "long",
+							day: "numeric",
+						})
+					}
 				</time>
 			</div>
-			<h1 transition:name={`title-/tutorials/${post.slug}`}>{post.data.title}</h1>
-			{post.data.image && <div transition:name={`image-/tutorials/${post.slug}`}><Image src={post.data.image} alt={post.data.title} class="hero-image" /></div>}
+			<h1 transition:name={`title-/tutorials/${post.slug}`}>
+				{post.data.title}
+			</h1>
+			{
+				post.data.image && (
+					<div transition:name={`image-/tutorials/${post.slug}`}>
+						<img
+							src={post.data.image}
+							alt={post.data.title}
+							class="hero-image"
+						/>
+					</div>
+				)
+			}
 		</header>
-		
+
 		<div class="prose">
 			<Content />
 		</div>
@@ -91,13 +104,13 @@ const { Content } = await post.render();
 		line-height: 1.8;
 		color: #ccc;
 	}
-	
+
 	.prose :global(h2) {
 		color: var(--color-accent);
 		margin: 2rem 0 1rem;
 		font-size: 1.8rem;
 	}
-	
+
 	.prose :global(pre) {
 		background: #1a1a2e !important;
 		padding: 1.5rem;

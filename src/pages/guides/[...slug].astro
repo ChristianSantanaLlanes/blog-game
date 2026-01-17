@@ -1,10 +1,9 @@
 ---
-import { getCollection } from 'astro:content';
-import { Image } from 'astro:assets';
-import Layout from '../../layouts/Layout.astro';
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
 
 export async function getStaticPaths() {
-	const posts = await getCollection('guides');
+	const posts = await getCollection("guides");
 	return posts.map((post) => ({
 		params: { slug: post.slug },
 		props: post,
@@ -19,19 +18,33 @@ const { Content } = await post.render();
 	<article class="post-content">
 		<header class="post-header">
 			<div class="meta">
-				<span class="game-tag">{post.data.game || 'General'}</span>
+				<span class="game-tag">{post.data.game || "General"}</span>
 				<time datetime={post.data.date.toISOString()}>
-					{post.data.date.toLocaleDateString('es-ES', {
-						year: 'numeric',
-						month: 'long',
-						day: 'numeric',
-					})}
+					{
+						post.data.date.toLocaleDateString("es-ES", {
+							year: "numeric",
+							month: "long",
+							day: "numeric",
+						})
+					}
 				</time>
 			</div>
-			<h1 transition:name={`title-/guides/${post.slug}`}>{post.data.title}</h1>
-			{post.data.image && <div transition:name={`image-/guides/${post.slug}`}><Image src={post.data.image} alt={post.data.title} class="hero-image" /></div>}
+			<h1 transition:name={`title-/guides/${post.slug}`}>
+				{post.data.title}
+			</h1>
+			{
+				post.data.image && (
+					<div transition:name={`image-/guides/${post.slug}`}>
+						<img
+							src={post.data.image}
+							alt={post.data.title}
+							class="hero-image"
+						/>
+					</div>
+				)
+			}
 		</header>
-		
+
 		<div class="prose">
 			<Content />
 		</div>
@@ -83,7 +96,7 @@ const { Content } = await post.render();
 		object-fit: cover;
 		border-radius: 8px;
 		margin-bottom: 2rem;
-		box-shadow: 0 10px 30px rgba(255,0,85,0.2); /* Pink glow for guides */
+		box-shadow: 0 10px 30px rgba(255, 0, 85, 0.2); /* Pink glow for guides */
 	}
 
 	.prose {
@@ -91,19 +104,19 @@ const { Content } = await post.render();
 		line-height: 1.8;
 		color: #ccc;
 	}
-	
+
 	.prose :global(h2) {
 		color: var(--color-secondary);
 		margin: 2rem 0 1rem;
 		font-size: 1.8rem;
-		border-bottom: 1px solid rgba(255,0,85,0.3);
+		border-bottom: 1px solid rgba(255, 0, 85, 0.3);
 		padding-bottom: 0.5rem;
 	}
-	
+
 	.prose :global(p) {
 		margin-bottom: 1.5rem;
 	}
-	
+
 	.prose :global(strong) {
 		color: white;
 	}

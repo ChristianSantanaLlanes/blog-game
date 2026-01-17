@@ -1,12 +1,9 @@
 ---
-import { Image } from 'astro:assets';
-import type { ImageMetadata } from 'astro';
-
 interface Post {
     title: string;
     description: string;
     date: Date;
-    image?: ImageMetadata;
+    image?: string;
     slug: string;
     type: string;
     badge?: string;
@@ -22,34 +19,62 @@ const { mainPost, sidePosts } = Astro.props;
 
 <section class="hero-grid">
     <div class="main-post">
-        <div class="image-wrapper" transition:name={`image-/${mainPost.type}/${mainPost.slug}`}>
-            {mainPost.image && <Image src={mainPost.image} alt={mainPost.title} loading="eager" />}
+        <div
+            class="image-wrapper"
+            transition:name={`image-/${mainPost.type}/${mainPost.slug}`}
+        >
+            {
+                mainPost.image && (
+                    <img
+                        src={mainPost.image}
+                        alt={mainPost.title}
+                        loading="eager"
+                    />
+                )
+            }
             <div class="overlay"></div>
         </div>
         <div class="content">
             <span class="badge main-badge">{mainPost.badge}</span>
             <h2 transition:name={`title-/${mainPost.type}/${mainPost.slug}`}>
-                <a href={`/${mainPost.type}/${mainPost.slug}`}>{mainPost.title}</a>
+                <a href={`/${mainPost.type}/${mainPost.slug}`}
+                    >{mainPost.title}</a
+                >
             </h2>
             <p>{mainPost.description}</p>
         </div>
     </div>
 
     <div class="side-posts">
-        {sidePosts.map(post => (
-            <article class="side-post">
-                <div class="image-wrapper" transition:name={`image-/${post.type}/${post.slug}`}>
-                    {post.image && <Image src={post.image} alt={post.title} loading="eager" />}
-                    <div class="overlay"></div>
-                </div>
-                <div class="content">
-                    <span class="badge">{post.badge}</span>
-                    <h3 transition:name={`title-/${post.type}/${post.slug}`}>
-                        <a href={`/${post.type}/${post.slug}`}>{post.title}</a>
-                    </h3>
-                </div>
-            </article>
-        ))}
+        {
+            sidePosts.map((post) => (
+                <article class="side-post">
+                    <div
+                        class="image-wrapper"
+                        transition:name={`image-/${post.type}/${post.slug}`}
+                    >
+                        {post.image && (
+                            <img
+                                src={post.image}
+                                alt={post.title}
+                                loading="eager"
+                            />
+                        )}
+                        <div class="overlay" />
+                    </div>
+                    <div class="content">
+                        <span class="badge">{post.badge}</span>
+                        <h3
+                            transition:name={`title-/${post.type}/${post.slug}`}
+                        >
+                            <a href={`/${post.type}/${post.slug}`}>
+                                {post.title}
+                            </a>
+                        </h3>
+                    </div>
+                </article>
+            ))
+        }
     </div>
 </section>
 
@@ -85,11 +110,16 @@ const { mainPost, sidePosts } = Astro.props;
     .overlay {
         position: absolute;
         inset: 0;
-        background: linear-gradient(to top, rgba(10,10,15, 0.95), rgba(10,10,15, 0.2));
+        background: linear-gradient(
+            to top,
+            rgba(10, 10, 15, 0.95),
+            rgba(10, 10, 15, 0.2)
+        );
         z-index: 2;
     }
 
-    .main-post, .side-post {
+    .main-post,
+    .side-post {
         position: relative;
         border-radius: 12px;
         overflow: hidden;
@@ -100,14 +130,15 @@ const { mainPost, sidePosts } = Astro.props;
         border: 1px solid #333;
     }
 
-    .main-post:hover .image-wrapper img, .side-post:hover .image-wrapper img {
+    .main-post:hover .image-wrapper img,
+    .side-post:hover .image-wrapper img {
         transform: scale(1.05);
     }
 
     .main-post {
         height: 400px;
     }
-    
+
     @media (min-width: 768px) {
         .main-post {
             height: 100%;
@@ -119,7 +150,7 @@ const { mainPost, sidePosts } = Astro.props;
         grid-template-rows: 1fr 1fr;
         gap: 1.5rem;
     }
-    
+
     .side-post {
         padding: 1.5rem;
     }
@@ -129,7 +160,7 @@ const { mainPost, sidePosts } = Astro.props;
         z-index: 10;
         pointer-events: none; /* Let clicks pass to links */
     }
-    
+
     .content a {
         pointer-events: all;
     }
@@ -150,23 +181,25 @@ const { mainPost, sidePosts } = Astro.props;
         font-size: 2rem;
         line-height: 1.1;
         margin-bottom: 0.8rem;
-        text-shadow: 0 4px 4px rgba(0,0,0,0.5);
+        text-shadow: 0 4px 4px rgba(0, 0, 0, 0.5);
     }
-    
+
     h3 {
         font-size: 1.2rem;
         line-height: 1.2;
         margin-bottom: 0;
-        text-shadow: 0 4px 4px rgba(0,0,0,0.5);
+        text-shadow: 0 4px 4px rgba(0, 0, 0, 0.5);
     }
 
-    h2 a, h3 a {
+    h2 a,
+    h3 a {
         color: #fff;
         text-decoration: none;
         transition: color 0.2s;
     }
-    
-    h2 a:hover, h3 a:hover {
+
+    h2 a:hover,
+    h3 a:hover {
         color: var(--color-primary);
     }
 

@@ -3,7 +3,7 @@ title: "Guía Segura de Overclocking para GPU"
 description: "Exprime unos FPS extra de tu tarjeta gráfica sin riesgos."
 date: 2024-05-24
 level: "Intermedio"
-image: "../../assets/images/uploads/tutorials/gpu-overclock.png"
+image: "/images/uploads/tutorials/gpu-overclock.png"
 ---
 
 Usaremos **MSI Afterburner** para este tutorial. Es la herramienta estándar y funciona con cualquier marca.

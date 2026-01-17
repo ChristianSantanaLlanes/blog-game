@@ -2,7 +2,7 @@
 title: Los creadores de Celeste anuncian 'Earthblade'
 date: 2024-05-25
 description: Un nuevo juego de acción y exploración en un mundo de pixel art vibrante.
-image: ../../assets/images/uploads/news/celeste-sequel.png
+image: /images/uploads/news/celeste-sequel.png
 ---
 ### Extremely OK Games, el estudio detrás del aclamado *Celeste*, ha revelado más detalles sobre su próximo proyecto: *Earthblade*.
 

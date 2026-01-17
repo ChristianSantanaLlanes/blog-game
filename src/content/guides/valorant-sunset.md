@@ -3,7 +3,7 @@ title: "Valorant: Guía de Lineups para Jett en Sunset"
 description: "Domina el mapa más reciente con estas estrategias de entrada."
 date: 2024-05-24
 game: "Valorant"
-image: "../../assets/images/uploads/guides/valorant-sunset.png"
+image: "/images/uploads/guides/valorant-sunset.png"
 ---
 
 Sunset es un mapa que premia el control del medio. Como Jett, tu trabajo es abrir espacios.

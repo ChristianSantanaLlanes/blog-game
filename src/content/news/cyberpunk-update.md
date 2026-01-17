@@ -2,7 +2,7 @@
 title: "Cyberpunk 2077: Actualización 2.1 ya disponible"
 description: "Night City recibe su sistema de metro, citas románticas y más en esta actualización masiva."
 date: 2024-05-23
-image: "../../assets/images/uploads/news/cyberpunk-update.png"
+image: "/images/uploads/news/cyberpunk-update.png"
 ---
 
 CD Projekt Red ha lanzado la esperada actualización 2.1 para Cyberpunk 2077. Esta versión incluye el tan solicitado sistema de metro NCART, permitiendo a los jugadores viajar por Night City de una forma totalmente nueva y inmersiva.
