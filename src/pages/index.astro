@@ -1,29 +1,35 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import PostCard from '../components/PostCard.astro';
-import HeroGrid from '../components/HeroGrid.astro';
-import Newsletter from '../components/Newsletter.astro';
-import Sidebar from '../components/Sidebar.astro';
-import TrendingWidget from '../components/TrendingWidget.astro';
-import CategoryCloud from '../components/CategoryCloud.astro';
-import { getCollection } from 'astro:content';
+import Layout from "../layouts/Layout.astro";
+import PostCard from "../components/PostCard.astro";
+import HeroGrid from "../components/HeroGrid.astro";
+import Newsletter from "../components/Newsletter.astro";
+import Sidebar from "../components/Sidebar.astro";
+import TrendingWidget from "../components/TrendingWidget.astro";
+import CategoryCloud from "../components/CategoryCloud.astro";
+import { getCollection } from "astro:content";
 
-const allNews = await getCollection('news');
-const allGuides = await getCollection('guides');
-const allTutorials = await getCollection('tutorials');
+const allNews = await getCollection("news");
+const allGuides = await getCollection("guides");
+const allTutorials = await getCollection("tutorials");
 
 // Helper to format posts
 const formatPost = (post, type, badge) => ({
 	...post.data,
 	slug: post.slug,
 	type,
-	badge: badge || post.data.badge
+	badge: badge || post.data.badge,
 });
 
 // Prepare data
-const newsPosts = allNews.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()).map(p => formatPost(p, 'news', 'Noticia'));
-const guidePosts = allGuides.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()).map(p => formatPost(p, 'guides', p.data.game || 'Guía'));
-const tutorialPosts = allTutorials.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()).map(p => formatPost(p, 'tutorials', p.data.level));
+const newsPosts = allNews
+	.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+	.map((p) => formatPost(p, "news", "Noticia"));
+const guidePosts = allGuides
+	.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+	.map((p) => formatPost(p, "guides", p.data.game || "Guía"));
+const tutorialPosts = allTutorials
+	.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+	.map((p) => formatPost(p, "tutorials", p.data.level));
 
 // Hero Content (Last 3 items mixed or curated)
 const heroItems = [...newsPosts, ...guidePosts, ...tutorialPosts].slice(0, 3);
@@ -31,7 +37,7 @@ const mainHero = heroItems[0];
 const sideHero = heroItems.slice(1, 3);
 
 // Filter out hero items from the rest to prevent duplicate transition names
-const heroIds = new Set(heroItems.map(p => `${p.type}/${p.slug}`));
+const heroIds = new Set(heroItems.map((p) => `${p.type}/${p.slug}`));
 const isNotInHero = (p) => !heroIds.has(`${p.type}/${p.slug}`);
 
 const displayNews = newsPosts.filter(isNotInHero).slice(0, 5);
@@ -39,7 +45,9 @@ const displayGuides = guidePosts.filter(isNotInHero).slice(0, 4);
 const displayTutorials = tutorialPosts.filter(isNotInHero).slice(0, 4);
 
 // Simulate Trending (mix of types)
-const trendingPosts = [...displayNews, ...displayGuides].sort(() => 0.5 - Math.random()).slice(0, 5);
+const trendingPosts = [...displayNews, ...displayGuides]
+	.sort(() => 0.5 - Math.random())
+	.slice(0, 5);
 ---
 
 <Layout title="Inicio">
@@ -48,62 +56,123 @@ const trendingPosts = [...displayNews, ...displayGuides].sort(() => 0.5 - Math.r
 	<div class="main-layout">
 		<!-- Main Content Column -->
 		<div class="main-content">
-			<section class="section">
+			<section class="section reveal">
 				<div class="section-header">
 					<h2>Últimas <span class="text-primary">Noticias</span></h2>
-					<a href="/news" class="view-all">Ver todas</a>
+					<a href="/news" class="view-all">
+						<span>Ver todas</span>
+						<svg
+							width="16"
+							height="16"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+						>
+							<path d="M5 12h14M12 5l7 7-7 7"></path>
+						</svg>
+					</a>
 				</div>
 				<div class="list-layout">
-					{displayNews.map((post, index) => (
-						<PostCard 
-							title={post.title}
-							description={post.description}
-							date={post.date}
-							image={post.image}
-							href={`/news/${post.slug}`}
-							badge={post.badge}
-							variant="horizontal"
-							loading={index === 0 ? "eager" : "lazy"}
-						/>
-					))}
+					{
+						displayNews.map((post, index) => (
+							<div
+								class="reveal"
+								style={`--delay: ${index * 0.1}s`}
+							>
+								<PostCard
+									title={post.title}
+									description={post.description}
+									date={post.date}
+									image={post.image}
+									href={`/news/${post.slug}`}
+									badge={post.badge}
+									variant="horizontal"
+									loading={index === 0 ? "eager" : "lazy"}
+								/>
+							</div>
+						))
+					}
 				</div>
 			</section>
 
-			<section class="section mt-12">
+			<section class="section mt-12 reveal">
 				<div class="section-header">
-					<h2>Guías <span class="text-secondary">Destacadas</span></h2>
-					<a href="/guides" class="view-all">Ver todas</a>
+					<h2>
+						Guías <span class="text-secondary">Destacadas</span>
+					</h2>
+					<a href="/guides" class="view-all">
+						<span>Ver todas</span>
+						<svg
+							width="16"
+							height="16"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+						>
+							<path d="M5 12h14M12 5l7 7-7 7"></path>
+						</svg>
+					</a>
 				</div>
 				<div class="grid-2col">
-					{displayGuides.map(post => (
-						<PostCard 
-							title={post.title}
-							description={post.description}
-							date={post.date}
-							image={post.image}
-							href={`/guides/${post.slug}`}
-							badge={post.badge}
-						/>
-					))}
+					{
+						displayGuides.map((post, index) => (
+							<div
+								class="reveal"
+								style={`--delay: ${index * 0.1}s`}
+							>
+								<PostCard
+									title={post.title}
+									description={post.description}
+									date={post.date}
+									image={post.image}
+									href={`/guides/${post.slug}`}
+									badge={post.badge}
+								/>
+							</div>
+						))
+					}
 				</div>
 			</section>
 
-			<section class="section mt-12">
+			<section class="section mt-12 reveal">
 				<div class="section-header">
-					<h2>Aprende con <span class="text-accent">Tutoriales</span></h2>
-					<a href="/tutorials" class="view-all">Ver todos</a>
+					<h2>
+						Aprende con <span class="text-accent">Tutoriales</span>
+					</h2>
+					<a href="/tutorials" class="view-all">
+						<span>Ver todos</span>
+						<svg
+							width="16"
+							height="16"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+						>
+							<path d="M5 12h14M12 5l7 7-7 7"></path>
+						</svg>
+					</a>
 				</div>
 				<div class="grid-2col">
-					{displayTutorials.map(post => (
-						<PostCard 
-							title={post.title}
-							description={post.description}
-							date={post.date}
-							image={post.image}
-							href={`/tutorials/${post.slug}`}
-							badge={post.badge}
-						/>
-					))}
+					{
+						displayTutorials.map((post, index) => (
+							<div
+								class="reveal"
+								style={`--delay: ${index * 0.1}s`}
+							>
+								<PostCard
+									title={post.title}
+									description={post.description}
+									date={post.date}
+									image={post.image}
+									href={`/tutorials/${post.slug}`}
+									badge={post.badge}
+								/>
+							</div>
+						))
+					}
 				</div>
 			</section>
 		</div>
@@ -132,7 +201,7 @@ const trendingPosts = [...displayNews, ...displayGuides].sort(() => 0.5 - Math.r
 	.section {
 		margin-bottom: 4rem;
 	}
-	
+
 	.mt-12 {
 		margin-top: 3rem;
 	}
@@ -140,42 +209,60 @@ const trendingPosts = [...displayNews, ...displayGuides].sort(() => 0.5 - Math.r
 	.section-header {
 		display: flex;
 		justify-content: space-between;
-		align-items: flex-end;
+		align-items: center;
 		margin-bottom: 2rem;
-		border-bottom: 1px solid #333;
 		padding-bottom: 1rem;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 	}
 
 	h2 {
-		font-size: 2rem;
+		font-size: 1.8rem;
 		line-height: 1;
 	}
 
-	.text-primary { color: var(--color-primary); }
-	.text-secondary { color: var(--color-secondary); }
-	.text-accent { color: var(--color-accent); }
+	.text-primary {
+		color: var(--color-primary);
+	}
+	.text-secondary {
+		color: var(--color-secondary);
+	}
+	.text-accent {
+		color: var(--color-accent);
+	}
 
 	.view-all {
-		color: #888;
-		font-size: 0.9rem;
-		font-weight: 700;
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+		color: rgba(255, 255, 255, 0.5);
+		font-size: 0.85rem;
+		font-weight: 600;
 		text-transform: uppercase;
 		text-decoration: none;
-		transition: color 0.2s;
+		transition: all var(--transition-fast);
+		letter-spacing: 0.5px;
 	}
-	
+
+	.view-all svg {
+		transition: transform var(--transition-fast);
+	}
+
 	.view-all:hover {
-		color: #fff;
+		color: var(--color-primary);
+	}
+
+	.view-all:hover svg {
+		transform: translateX(4px);
 	}
 
 	.list-layout {
 		display: grid;
-		gap: 2rem;
+		gap: 1.5rem;
 	}
 
 	.grid-2col {
 		display: grid;
-		gap: 2rem;
+		gap: 1.5rem;
 		grid-template-columns: 1fr;
 	}
 
@@ -184,4 +271,38 @@ const trendingPosts = [...displayNews, ...displayGuides].sort(() => 0.5 - Math.r
 			grid-template-columns: repeat(2, 1fr);
 		}
 	}
+
+	/* Reveal animations with staggered delays */
+	.reveal {
+		opacity: 0;
+		transform: translateY(25px);
+		transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+		transition-delay: var(--delay, 0s);
+	}
+
+	.reveal.visible {
+		opacity: 1;
+		transform: translateY(0);
+	}
 </style>
+
+<script>
+	// Enhanced scroll reveal with IntersectionObserver
+	const revealElements = document.querySelectorAll(".reveal");
+
+	const revealObserver = new IntersectionObserver(
+		(entries) => {
+			entries.forEach((entry) => {
+				if (entry.isIntersecting) {
+					entry.target.classList.add("visible");
+				}
+			});
+		},
+		{
+			threshold: 0.1,
+			rootMargin: "0px 0px -50px 0px",
+		},
+	);
+
+	revealElements.forEach((el) => revealObserver.observe(el));
+</script>
