@@ -3,7 +3,7 @@ title: "Cómo configurar tu Setup de Streaming desde cero"
 description: "Todo lo que necesitas para empezar en Twitch o YouTube."
 date: 2024-05-23
 level: "Principiante"
-image: "../../assets/images/uploads/streaming-setup.png"
+image: "../../assets/images/uploads/tutorials/streaming-setup.png"
 ---
 
 ¿Quieres empezar a transmitir? No necesitas gastar miles de dólares. Aquí tienes lo básico.

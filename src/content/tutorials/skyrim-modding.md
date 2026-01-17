@@ -3,7 +3,7 @@ title: "Transforma Skyrim en un juego Next-Gen"
 description: "Lista de mods esenciales para gráficos 4K y jugabilidad moderna."
 date: 2024-05-25
 level: "Avanzado"
-image: "../../assets/images/uploads/skyrim-modding.png"
+image: "../../assets/images/uploads/tutorials/skyrim-modding.png"
 ---
 
 Skyrim tiene más de 10 años, pero con estos mods parece que salió ayer.
