@@ -10,8 +10,8 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.9.6",
+    "@sveltia/cms": "^0.128.2",
     "astro": "^5.16.11",
-    "decap-cms-app": "^3.10.0",
     "netlify-identity-widget": "^1.9.2",
     "typescript": "^5.9.3"
   }
