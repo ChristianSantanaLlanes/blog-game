@@ -9,13 +9,8 @@
   </head>
   <body>
     <!-- Include the script that builds the page and powers Sveltia CMS -->
-    <script>
-      import "@sveltia/cms";
-      import netlifyIdentity from "netlify-identity-widget";
-
-      // Attach Identity to window for Sveltia to detect
-      window.netlifyIdentity = netlifyIdentity;
-      netlifyIdentity.init();
-    </script>
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"
+    ></script>
+    <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
   </body>
 </html>
