@@ -5,8 +5,8 @@ backend:
 local_backend: true
 
 
-media_folder: "src/assets/images/uploads"
-public_folder: "/src/assets/images/uploads"
+# media_folder: "src/assets/images/uploads"
+# public_folder: "/src/assets/images/uploads"
 
 collections:
   - name: "news"
