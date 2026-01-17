@@ -508,6 +508,19 @@ footer::before {
   transform: translateY(0);
 }
 
+/* Prevent flicker during View Transitions - keep visible elements visible */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.3s;
+}
+
+/* During page transitions, don't hide already visible elements */
+html.is-transitioning .reveal.visible,
+html[data-astro-transition] .reveal.visible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
 .reveal-delay-1 {
   transition-delay: 0.1s;
 }

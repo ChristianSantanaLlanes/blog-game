@@ -208,7 +208,11 @@ const { title } = Astro.props;
 				window.removeEventListener("scroll", window.__revealOnScroll);
 				window.__revealOnScroll = revealOnScroll;
 				window.addEventListener("scroll", revealOnScroll);
-				revealOnScroll(); // Initial check
+
+				// Run immediately with requestAnimationFrame to avoid flicker
+				requestAnimationFrame(() => {
+					revealOnScroll();
+				});
 			}
 
 			// Run on initial page load
