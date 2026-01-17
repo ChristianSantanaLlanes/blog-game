@@ -1,0 +1,53 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PostCard from '../../components/PostCard.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('tutorials')).sort(
+	(a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+---
+
+<Layout title="Tutoriales">
+	<div class="page-header">
+		<h1>Tutoriales</h1>
+		<p>Aprende paso a paso con nuestros expertos.</p>
+	</div>
+
+	<div class="grid">
+		{posts.map((post) => (
+			<PostCard
+				title={post.data.title}
+				description={post.data.description}
+				date={post.data.date}
+				image={post.data.image}
+				href={`/tutorials/${post.slug}`}
+				badge={post.data.level}
+			/>
+		))}
+	</div>
+</Layout>
+
+<style>
+	.page-header {
+		text-align: center;
+		margin-bottom: 3rem;
+	}
+
+	.page-header h1 {
+		font-size: 3rem;
+		color: var(--color-accent); /* Blue for Tutorials */
+		margin-bottom: 0.5rem;
+	}
+
+	.page-header p {
+		color: #aaa;
+		font-size: 1.2rem;
+	}
+
+	.grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+		gap: 2rem;
+	}
+</style>

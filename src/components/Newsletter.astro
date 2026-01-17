@@ -1,0 +1,96 @@
+<section class="newsletter">
+    <div class="newsletter-content">
+        <div class="text">
+            <h2>Únete al Escuadrón</h2>
+            <p>Recibe las últimas noticias y guías pro directamente en tu inbox cada semana.</p>
+        </div>
+        <form class="subscribe-form" onsubmit="event.preventDefault();">
+            <input type="email" placeholder="tu@email.com" required />
+            <button type="submit">Suscribirse</button>
+        </form>
+    </div>
+    <div class="glow-effect"></div>
+</section>
+
+<style>
+    /* Compact Newsletter for Sidebar */
+    .newsletter {
+        position: relative;
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        border: 1px solid #333;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        overflow: visible; /* Fix button getting cut off */
+        text-align: left;
+    }
+    
+    .newsletter-content {
+        position: relative;
+        z-index: 10;
+        width: 100%;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+        background: linear-gradient(90deg, #fff, #aaa);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    
+    p {
+        color: #888;
+        margin-bottom: 1rem;
+        font-size: 0.9rem;
+        line-height: 1.4;
+    }
+
+    .subscribe-form {
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+    
+    input {
+        width: 100%;
+        padding: 0.8rem 1rem;
+        border-radius: 6px;
+        border: 2px solid #333;
+        background: #0a0a0f;
+        color: #fff;
+        font-family: inherit;
+        font-size: 0.9rem;
+        outline: none;
+        transition: border-color 0.2s;
+    }
+    
+    input:focus {
+        border-color: var(--color-primary);
+    }
+    
+    button {
+        width: 100%;
+        padding: 0.8rem;
+        background: var(--color-primary);
+        color: #000;
+        font-weight: 800;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-family: var(--font-heading);
+        font-size: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+    
+    button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 255, 136, 0.4);
+    }
+
+    .glow-effect {
+        display: none; /* Simplify for sidebar usage */
+    }
+</style>

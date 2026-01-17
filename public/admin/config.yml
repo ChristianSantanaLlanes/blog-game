@@ -1,0 +1,47 @@
+backend:
+  name: git-gateway
+  branch: main
+local_backend: true
+
+
+media_folder: "src/assets/images/uploads"
+public_folder: "../../assets/images/uploads"
+
+collections:
+  - name: "news"
+    label: "Noticias"
+    folder: "src/content/news"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Título", name: "title", widget: "string"}
+      - {label: "Publicado", name: "date", widget: "datetime"}
+      - {label: "Descripción", name: "description", widget: "text"}
+      - {label: "Imagen Destacada", name: "image", widget: "image", required: false}
+      - {label: "Cuerpo", name: "body", widget: "markdown"}
+  
+  - name: "guides"
+    label: "Guías"
+    folder: "src/content/guides"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Título", name: "title", widget: "string"}
+      - {label: "Publicado", name: "date", widget: "datetime"}
+      - {label: "Juego", name: "game", widget: "string", required: false}
+      - {label: "Descripción", name: "description", widget: "text"}
+      - {label: "Imagen Destacada", name: "image", widget: "image", required: false}
+      - {label: "Cuerpo", name: "body", widget: "markdown"}
+
+  - name: "tutorials"
+    label: "Tutoriales"
+    folder: "src/content/tutorials"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Título", name: "title", widget: "string"}
+      - {label: "Publicado", name: "date", widget: "datetime"}
+      - {label: "Nivel", name: "level", widget: "select", options: ["Principiante", "Intermedio", "Avanzado"]}
+      - {label: "Descripción", name: "description", widget: "text"}
+      - {label: "Imagen Destacada", name: "image", widget: "image", required: false}
+      - {label: "Cuerpo", name: "body", widget: "markdown"}

@@ -1,0 +1,19 @@
+<aside class="sidebar">
+    <slot />
+</aside>
+
+<style>
+    .sidebar {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    @media (min-width: 1024px) {
+        .sidebar {
+            position: sticky;
+            top: 2rem;
+            align-self: start;
+            height: fit-content;
+        }
+    }
+</style>

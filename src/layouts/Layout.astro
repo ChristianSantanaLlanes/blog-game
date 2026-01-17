@@ -1,0 +1,174 @@
+---
+interface Props {
+	title: string;
+}
+
+interface Props {
+	title: string;
+}
+
+import { ViewTransitions } from 'astro:transitions';
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="Noticias, guías y tutoriales de videojuegos" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+		<title>{title} | GamingZone</title>
+		<meta name="view-transition" content="same-origin" />
+		<ViewTransitions />
+		
+		<!-- Decap CMS Identity Widget -->
+		<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+	</head>
+	<body>
+		<header class="main-header">
+			<nav>
+				<a href="/" class="logo">Gaming<span class="highlight">Zone</span></a>
+				<ul class="nav-links">
+					<li><a href="/">Inicio</a></li>
+					<li><a href="/news">Noticias</a></li>
+					<li><a href="/guides">Guías</a></li>
+					<li><a href="/tutorials">Tutoriales</a></li>
+				</ul>
+			</nav>
+		</header>
+		<main>
+			<slot />
+		</main>
+		<footer>
+			<p>&copy; {new Date().getFullYear()} GamingZone. Todos los derechos reservados.</p>
+		</footer>
+		
+		<script>
+		  if (window.netlifyIdentity) {
+		    window.netlifyIdentity.on("init", user => {
+		      if (!user) {
+		        window.netlifyIdentity.on("login", () => {
+		          document.location.href = "/admin/";
+		        });
+		      }
+		    });
+		  }
+		</script>
+	</body>
+</html>
+
+<style is:global>
+	:root {
+		--color-bg: #050508;
+		--color-bg-secondary: #0f0f16;
+		--color-text: #e0e0e0;
+		--color-primary: #00ff9d; /* More vibrant neon green */
+		--color-secondary: #ff0055;
+		--color-accent: #00e5ff; 
+		
+		--font-body: 'Outfit', sans-serif;
+		--font-heading: 'Rajdhani', sans-serif;
+	}
+	
+	* {
+		box-sizing: border-box;
+		margin: 0;
+		padding: 0;
+	}
+	
+	html {
+		font-family: var(--font-body);
+		background: var(--color-bg);
+		color: var(--color-text);
+		scroll-behavior: smooth;
+	}
+
+    ::selection {
+        background: var(--color-primary);
+        color: #000;
+    }
+	
+	body {
+		min-height: 100vh;
+		display: flex;
+		flex-direction: column;
+	}
+	
+	h1, h2, h3, h4, h5, h6 {
+		font-family: var(--font-heading);
+		text-transform: uppercase;
+		letter-spacing: 1px;
+	}
+	
+	a {
+		color: inherit;
+		text-decoration: none;
+		transition: color 0.2s;
+	}
+	
+	a:hover {
+		color: var(--color-primary);
+	}
+
+	.main-header {
+		background: rgba(10, 10, 15, 0.9);
+		border-bottom: 2px solid var(--color-bg-secondary);
+		padding: 1rem 2rem;
+		position: sticky;
+		top: 0;
+		z-index: 100;
+		backdrop-filter: blur(10px);
+	}
+	
+	nav {
+		max-width: 1200px;
+		margin: 0 auto;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+	
+	.logo {
+		font-family: var(--font-heading);
+		font-size: 1.8rem;
+		font-weight: 700;
+	}
+	
+	.highlight {
+		color: var(--color-primary);
+	}
+	
+	.nav-links {
+		display: flex;
+		gap: 2rem;
+		list-style: none;
+	}
+	
+	.nav-links a {
+		font-weight: 700;
+		font-size: 1.1rem;
+		text-transform: uppercase;
+	}
+	
+	main {
+		flex: 1;
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 2rem;
+		width: 100%;
+	}
+	
+	footer {
+		background: var(--color-bg-secondary);
+		border-top: 1px solid #333;
+		text-align: center;
+		padding: 2rem;
+		margin-top: 4rem;
+		font-size: 0.9rem;
+		color: #888;
+	}
+</style>
