@@ -9,8 +9,16 @@
   </head>
   <body>
     <!-- Include the script that builds the page and powers Decap CMS -->
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"
-    ></script>
-    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    <script>
+      import DecapCMS from "decap-cms-app";
+      import netlifyIdentity from "netlify-identity-widget";
+
+      // Attach Identity to window for Decap to detect
+      window.netlifyIdentity = netlifyIdentity;
+      netlifyIdentity.init();
+
+      // Initialize the CMS
+      DecapCMS.init();
+    </script>
   </body>
 </html>
