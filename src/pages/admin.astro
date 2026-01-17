@@ -19,6 +19,84 @@
 
       // Initialize the CMS
       DecapCMS.init();
+
+      // Register styles
+      DecapCMS.registerPreviewStyle("/src/styles/global.css");
     </script>
+    <style is:global>
+      /* Dark Mode for Decap CMS */
+      :root {
+        --bg-color: #1a1b26;
+        --text-color: #a9b1d6;
+        --sidebar-bg: #16161e;
+        --card-bg: #24283b;
+        --border-color: #414868;
+        --accent-color: #7aa2f7;
+      }
+
+      /* Base UI */
+      body,
+      #nc-root {
+        background-color: var(--bg-color) !important;
+        color: var(--text-color) !important;
+      }
+
+      /* Sidebar */
+      [class*="SidebarContainer"] {
+        background-color: var(--sidebar-bg) !important;
+        border-right: 1px solid var(--border-color) !important;
+      }
+      [class*="SidebarLink"] {
+        color: var(--text-color) !important;
+      }
+      [class*="SidebarLink"]:hover,
+      [class*="SidebarLink"][class*="active"] {
+        background-color: var(--card-bg) !important;
+        color: var(--accent-color) !important;
+      }
+
+      /* Header */
+      [class*="AppHeader"] {
+        background-color: var(--card-bg) !important;
+      }
+
+      /* Lists & Cards */
+      [class*="CollectionTop"] {
+        background-color: var(--bg-color) !important;
+      }
+      [class*="Card"] {
+        background-color: var(--card-bg) !important;
+        border: 1px solid var(--border-color) !important;
+        color: var(--text-color) !important;
+      }
+      [class*="Card"]:hover {
+        border-color: var(--accent-color) !important;
+      }
+
+      /* Inputs & Forms */
+      input,
+      textarea,
+      select {
+        background-color: var(--bg-color) !important;
+        border: 1px solid var(--border-color) !important;
+        color: var(--text-color) !important;
+      }
+
+      /* Buttons */
+      button[class*="Button"] {
+        background-color: var(--accent-color) !important;
+        color: #fff !important;
+      }
+
+      /* Text */
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        color: #fff !important;
+      }
+    </style>
   </body>
 </html>
