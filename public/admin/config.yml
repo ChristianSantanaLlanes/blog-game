@@ -1,11 +1,12 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: ChristianSantanaLlanes/blog-game
   branch: main
 local_backend: true
 
 
 media_folder: "src/assets/images/uploads"
-public_folder: "../../assets/images/uploads"
+public_folder: "/src/assets/images/uploads"
 
 collections:
   - name: "news"
